@@ -205,3 +205,11 @@ const mappedHttpResponse: { res: pino.SerializedResponse } = pino.stdSerializers
 const serializedErr: pino.SerializedError = pino.stdSerializers.err(new Error());
 const serializedReq: pino.SerializedRequest = pino.stdSerializers.req(incomingMessage);
 const serializedRes: pino.SerializedResponse = pino.stdSerializers.res(serverResponse);
+
+const withHooks = pino({
+  hooks: {
+    logMethod(args: any[], method: pino.LogFn) {
+            return method.apply(this, args);
+        },
+    },
+});

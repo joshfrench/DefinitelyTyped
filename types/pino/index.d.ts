@@ -1,4 +1,4 @@
-// Type definitions for pino 6.0
+// Type definitions for pino 6.1
 // Project: https://github.com/pinojs/pino.git, http://getpino.io
 // Definitions by: Peter Snider <https://github.com/psnider>
 //                 BendingBender <https://github.com/BendingBender>
@@ -12,6 +12,7 @@
 //                 Adam Vigneaux <https://github.com/AdamVig>
 //                 Austin Beer <https://github.com/austin-beer>
 //                 Michel Nemnom <https://github.com/Pegase745>
+//                 Josh French <https://github.com/joshfrench>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.7
 
@@ -472,6 +473,35 @@ declare namespace P {
            * By default it does not change the shape of the log object.
            */
           log?: (object: object) => object;
+        };
+
+        /**
+         * An object mapping to hook functions.
+         * Hook functions allow for customizing internal logger operations.
+         * Hook functions *must* be synchronous functions.
+         */
+        hooks?: {
+            /**
+             * Allows for manipulating the parameters passed to logger methods.
+             * The signature for this hook is `logMethod(args, method) {}`, where `args `is an array of the arguments that were passed to the log method and `method` is the log method itself.
+             * This hook *must* invoke the method function by using apply, like so: `method.apply(this, newArgumentsArray)`.
+             *
+             * For example, Pino expects a binding object to be the first parameter with an optional string message as the second parameter.
+             * Using this hook the parameters can be flipped:
+             *
+             * @example
+             * const hooks = {
+             *   logMethod (inputArgs, method) {
+             *     if (inputArgs.length >= 2) {
+             *       const arg1 = inputArgs.shift()
+             *       const arg2 = inputArgs.shift()
+             *       return method.apply(this, [arg2, arg1, ...inputArgs])
+             *     }
+             *     return method.apply(this, inputArgs)
+             *   }
+             * }
+             */
+            logMethod?: (args: any[], method: LogFn) => void;
         };
     }
 
