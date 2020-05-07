@@ -453,26 +453,26 @@ declare namespace P {
          * For example, they can be used to change the level key name or to enrich the default metadata.
          */
         formatters?: {
-          /**
-           * Changes the shape of the log level.
-           * The default shape is { level: number }.
-           * The function takes two arguments, the label of the level (e.g. 'info') and the numeric value (e.g. 30).
-           */
-          level?: (level: string, number: number) => object;
-          /**
-           * Changes the shape of the bindings.
-           * The default shape is { pid, hostname }.
-           * The function takes a single argument, the bindings object.
-           * It will be called every time a child logger is created.
-           */
-          bindings?: (bindings: Bindings) => object;
-          /**
-           * Changes the shape of the log object.
-           * This function will be called every time one of the log methods (such as .info) is called.
-           * All arguments passed to the log method, except the message, will be pass to this function.
-           * By default it does not change the shape of the log object.
-           */
-          log?: (object: object) => object;
+            /**
+             * Changes the shape of the log level.
+             * The default shape is { level: number }.
+             * The function takes two arguments, the label of the level (e.g. 'info') and the numeric value (e.g. 30).
+             */
+            level?: (level: string, number: number) => object;
+            /**
+             * Changes the shape of the bindings.
+             * The default shape is { pid, hostname }.
+             * The function takes a single argument, the bindings object.
+             * It will be called every time a child logger is created.
+             */
+            bindings?: (bindings: Bindings) => object;
+            /**
+             * Changes the shape of the log object.
+             * This function will be called every time one of the log methods (such as .info) is called.
+             * All arguments passed to the log method, except the message, will be pass to this function.
+             * By default it does not change the shape of the log object.
+             */
+            log?: (object: object) => object;
         };
 
         /**
